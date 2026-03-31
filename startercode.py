@@ -74,7 +74,27 @@ def search_breed(breed_id):
         JSON body as a dict (with a top-level 'data' key on success), OR None if the
         request failed or the response does not represent a successful breed lookup.
     """
-    pass
+    url = f"https://dogapi.dog/api/v2/breeds/{breed_id}"
+
+    try:
+        response = requests.get(url, timeout=10)
+        if response.status_code != 200:
+            return None
+
+        parsed_json = response.json()
+
+        if (
+            isinstance(parsed_json, dict)
+            and "data" in parsed_json
+            and parsed_json["data"] is not None
+            and parsed_json["data"].get("id") == breed_id
+        ):
+            return (parsed_json, response.url)
+
+        return None
+
+    except (requests.RequestException, ValueError, json.JSONDecodeError):
+        return None
 
 
 def update_cache(breed_ids, cache_file):
