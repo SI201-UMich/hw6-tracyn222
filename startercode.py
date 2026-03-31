@@ -8,7 +8,7 @@
 # Asked ChatGPT for help debugging and understanding the JSON structure
 # Asked ChatGpt for doing the terminal to make sure i dont mmiss anything 
 # Did your use of GenAI on this assignment align with your goals and guidelines in your Gen AI contract? If not, why?
-#
+# No
 # --- ARGUMENTS & EXPECTED RETURN VALUES PROVIDED --- #
 # --- SEE INSTRUCTIONS FOR FULL DETAILS ON METHOD IMPLEMENTATION --- #
 
