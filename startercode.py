@@ -148,7 +148,32 @@ def get_longest_lifespan_breed(cache_file):
         A tuple (breed_name, max_lifespan_integer) for the winning breed, OR the
         string "No breeds found" if no breed in the cache has a life.max value.
     """
-    pass
+    cache = load_json(cache_file)
+    best_name = None
+    best_lifespan = None
+
+    for breed_info in cache.values():
+        data = breed_info.get("data", {})
+        attributes = data.get("attributes", {})
+        name = attributes.get("name")
+        max_life = attributes.get("life", {}).get("max")
+
+        if isinstance(name, str) and isinstance(max_life, int):
+            if best_lifespan is None:
+                best_name = name
+                best_lifespan = max_life
+            elif max_life > best_lifespan:
+                best_name = name
+                best_lifespan = max_life
+            elif max_life == best_lifespan and name < best_name:
+                best_name = name
+                best_lifespan = max_life
+
+    if best_name is None:
+        return "No breeds found"
+
+    return (best_name, best_lifespan)
+
 
 
 def get_groups_above_cutoff(cutoff, cache_file):
